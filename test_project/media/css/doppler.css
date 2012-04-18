@@ -1,0 +1,78 @@
+ul.breadcrumb li:after {
+	content: ' /';
+}
+ul.breadcrumb li:last-child:after {
+	content: none;
+}
+
+body {
+	padding-top: 60px;
+}
+
+.form-horizontal input,
+.form-horizontal textarea,
+.form-horizontal select,
+.form-horizontal .uneditable-input {
+	width: 600px;
+}
+
+form .required label {
+	font-weight: bold;
+}
+	form .required label:after {
+		content: '*';
+	}
+
+h1,
+h2,
+h3,
+h4,
+.breadcrumb li a,
+table th,
+button,
+.btn {
+	text-transform: capitalize;
+}
+
+ul.works {
+    list-style: none;
+    overflow: hidden;
+}
+    ul.works li {
+        list-style: none;
+        float: left;
+        margin: 0;
+        width: 220px;
+        height: 300px;
+        overflow: hidden;
+    }
+        ul.works li a {
+            display: block;
+            width: 200px;
+            height: 280px;
+            margin: 10px;
+            overflow: hidden;
+            position: relative;
+            border-radius: 1em;
+            background-color: #08C;
+        }
+            ul.works li a h2 {
+                position: absolute;
+                bottom: 0.5em; left: 0.5em;
+                line-height: 1.5em;
+                color: #FFF;
+                font-size: 18px;
+                z-index: 100500;
+            }
+            ul.works li a img {
+                width: 200px;
+                height: 200px;
+                display: block;
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+
+        ul.works li a:hover {
+            background-color: rgba(100,100,100,0.5)
+        }

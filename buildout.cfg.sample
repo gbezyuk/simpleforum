@@ -1,0 +1,54 @@
+[buildout]
+parts = django
+
+versions = versions
+
+[django]
+recipe = djangorecipe
+settings = development
+versions = versions
+eggs =
+# HTML sanitation
+#	bleach
+
+# database migration
+	south
+
+# better and more beautiful django-admin site UI
+	django-grappelli
+# filebrowser for django-grappelli admin
+	django-filebrowser
+
+# admin interface for .po/.mo files translation
+	django-rosetta
+
+# simply better python shell
+	ipython
+
+# for small pieces of AJAX
+	simplejson
+
+# apparently best relational DB trees implementation
+#	django-mptt
+# basically, cheap & cheerful admin UI for django-mptt trees. Other stuff stays unused.
+#	feincms
+
+# hamlpy dependency
+	pygments
+# HAML translator python realization
+	hamlpy
+# makes hamlpy usage in django templates possible
+	djaml
+
+# testing tools. See http://habrahabr.ru/post/91471/ and http://blog.futurecolors.ru/2012/04/testing-and-django-carl-meyer.html for details
+	webtest
+	django-webtest
+	coverage
+	django-coverage
+    django_any
+    django_jenkins
+
+project = test_project
+
+[versions]
+django = 1.4

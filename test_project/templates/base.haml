@@ -1,0 +1,78 @@
+- extends 'html5_empty.haml'
+- load i18n
+- load repeatblock
+- enablemacros
+
+- block sitewide_styles
+	%link{'rel': 'stylesheet', 'href':'{{ MEDIA_URL }}twitter_bootstrap/css/bootstrap.css', 'type': 'text/css'}
+	%link{'rel': 'stylesheet', 'href':'{{ MEDIA_URL }}jquery-lightbox/css/jquery.lightbox-0.5.css', 'type': 'text/css'}
+	%link{'rel': 'stylesheet', 'href':'{{ MEDIA_URL }}css/doppler.css', 'type': 'text/css'}
+
+- block sitewide_scripts
+	%script{'type': 'text/javascript', 'src': '{{ MEDIA_URL }}js/jquery-1.7.1.js'}
+	%script{'type': 'text/javascript', 'src': '{{ MEDIA_URL }}twitter_bootstrap/js/bootstrap.js'}
+	%script{'type': 'text/javascript', 'src': '{{ MEDIA_URL }}jquery-lightbox/js/jquery.lightbox-0.5.js'}
+	%script{'type': 'text/javascript', 'src': '{{ MEDIA_URL }}js/jquery.transit.js'}
+	%script{'type': 'text/javascript', 'src': '{{ MEDIA_URL }}js/global.js'}
+
+- block body
+	.navbar.navbar-fixed-top
+		.navbar-inner
+			.container
+				%a.btn.btn-navbar{'data-target': '.nav-collapse', 'data-toggle': 'collapse'}
+					%span.icon-bar
+					%span.icon-bar
+					%span.icon-bar
+				%a.brand{'href': '/'}
+					SimpleForum
+					%i &beta;
+				%ul.nav{'style': 'float: right'}
+					- if not request.user.is_anonymous
+						%li.dropdown
+							%a#auth-dropdown-toggler.dropdown-toggle{'href': "{#% url profile %#}", 'data-toggle': "dropdown"}
+								{% trans "You are logged in as " %}
+								%i.icon-user
+								%strong
+									= request.user.username
+							%ul.dropdown-menu
+								%li
+									%a{'href': '{% url auth:logout %}'}
+										{% trans "Logout" %}
+					- else
+						%li
+							%a{'data-toggle': 'modal', 'href': '#loginModal'}
+								{% trans "login" %}
+
+	.container
+		- block breadcrumbs
+		- if messages
+			- for message in messages
+				%div{'class': 'alert alert-{{ message.tags }}'}
+					= message
+		%h1
+			- block caption
+		- block content
+		- repeat breadcrumbs
+		- block login_modal
+			%form#loginModal.modal.hide.fade.in.well{'method': 'POST', 'action': '{% url auth:login %}'}
+				- csrf_token
+				.modal-header
+					%a.close{'data-dismiss': "modal"}×
+					%h3
+						{% trans "Login" %}
+				.modal-body
+					%label{'for': 'id_username'}
+						{% trans "Username" %}:
+					%input#id_username{'name': 'username', 'maxlength': '100', 'type': 'text'}
+					%label{'for': 'id_password'}
+						{% trans "Password" %}:
+					%input#id_password{'name': 'password', 'maxlength': '100', 'type': 'password'}
+					%input#id_next{'name': 'next', 'maxlength': '100', 'type': 'hidden', 'value': '{{ request.get_full_path }}'}
+				.modal-footer
+					%button.btn.btn-primary{'type': 'submit'}
+						{% trans "Login" %}
+
+		%footer.footer
+			%p.pull-right
+				%a{'href': "#"}
+					{% trans "Back to top" %}
