@@ -28,10 +28,10 @@ eggs =
 # for small pieces of AJAX
 	simplejson
 
-# apparently best relational DB trees implementation
-#	django-mptt
+# apparently best relational DB trees implementation for django
+	django-mptt
 # basically, cheap & cheerful admin UI for django-mptt trees. Other stuff stays unused.
-#	feincms
+	feincms
 
 # hamlpy dependency
 	pygments

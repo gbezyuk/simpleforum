@@ -50,6 +50,8 @@ class JenkinsDiscoveryDjangoTestSuiteRunner(CITestSuiteRunner, DiscoveryDjangoTe
     def build_suite(self, test_labels, **kwargs):
         suite = None
         discovery_root = settings.TEST_DISCOVERY_ROOT
+#        if not test_labels:
+#            test_labels = settings.PROJECT_APPS    # that should work, but it doesn't
         if test_labels:
             suite = defaultTestLoader.loadTestsFromNames(test_labels)
             # if single named module has no tests, do discovery within it
