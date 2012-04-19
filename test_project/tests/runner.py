@@ -13,9 +13,13 @@ from django.test import TestCase
 from django.test.simple import DjangoTestSuiteRunner, reorder_suite
 from django.utils.importlib import import_module
 from django.utils.unittest.loader import defaultTestLoader
+from django_jenkins.runner import CITestSuiteRunner
+from django_jenkins import signals
 
 class DiscoveryDjangoTestSuiteRunner(DjangoTestSuiteRunner):
-    """A test suite runner that uses unittest2 test discovery."""
+    """
+    A test suite runner that uses unittest2 test discovery.
+    """
     def build_suite(self, test_labels, extra_tests=None, **kwargs):
         suite = None
         discovery_root = settings.TEST_DISCOVERY_ROOT
@@ -37,4 +41,25 @@ class DiscoveryDjangoTestSuiteRunner(DjangoTestSuiteRunner):
             for test in extra_tests:
                 suite.addTest(test)
 
+        return reorder_suite(suite, (TestCase,))
+
+class JenkinsDiscoveryDjangoTestSuiteRunner(CITestSuiteRunner, DiscoveryDjangoTestSuiteRunner):
+    """
+    Unittest2 test discovery runner version for django_jenkins
+    """
+    def build_suite(self, test_labels, **kwargs):
+        suite = None
+        discovery_root = settings.TEST_DISCOVERY_ROOT
+        if test_labels:
+            suite = defaultTestLoader.loadTestsFromNames(test_labels)
+            # if single named module has no tests, do discovery within it
+            if not suite.countTestCases() and len(test_labels) == 1:
+                suite = None
+                discovery_root = import_module(test_labels[0]).__path__[0]
+        if suite is None:
+            suite = defaultTestLoader.discover(
+                discovery_root,
+                top_level_dir=settings.BASE_PATH,
+            )
+        signals.build_suite.send(sender=self, suite=suite)
         return reorder_suite(suite, (TestCase,))

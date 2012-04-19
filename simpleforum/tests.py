@@ -5,15 +5,15 @@ from django_webtest import WebTest
 
 class ForumIndexTest(WebTest):
 
-    def setUp(self):
-        """
-        Initialization. Creating model instances for tests
-        """
+#   def setUp(self):
+#       """
+#       Initialization. Creating model instances for tests
+#       """
 #       self.root_room1 = any_model(Room, parent=None)
 #       self.root_room2 = any_model(Room, parent=None)
 #       self.child_room_1_1 = any_model(Room, parent=self.root_room1)
 #       self.child_room_2_1 = any_model(Room, parent=self.root_room2)
-        pass
+#        pass
 
     def test_list_view(self):
         """
@@ -22,3 +22,5 @@ class ForumIndexTest(WebTest):
         index_page = self.app.get(reverse("simpleforum_index"))
         self.assertEqual(index_page.status, '200 OK')
 
+    def test_ololo(self):
+        assert True
