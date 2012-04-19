@@ -10,6 +10,10 @@ versions = versions
 eggs =
 # HTML sanitation
 #	bleach
+# instead of direct bleach usage, better to use existing bycicle named django_sanitizer; but this package seems to be buggy
+#    django_sanitizer
+# another purpose is django_janitor
+    django_janitor
 
 # database migration
 	south

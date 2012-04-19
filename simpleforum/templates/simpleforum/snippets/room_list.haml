@@ -1,0 +1,20 @@
+- load i18n
+
+%table.rooms.forum_index
+	%thead
+		%tr
+			%th
+				{% trans "Room" %}
+	%tbody
+		- if rooms
+			- for room in rooms
+				%tr
+					%td
+						= room
+						- if room.description
+							.description
+								= room.description|safe
+		- else
+		%tr
+			%td
+				= empty_list_message

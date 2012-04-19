@@ -32,6 +32,8 @@ INSTALLED_APPS = (
     'accounts',
     'pagination',
 
+    'janitor',
+
     'test_project',
     'simpleforum',
 
