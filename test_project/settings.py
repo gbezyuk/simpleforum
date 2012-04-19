@@ -150,4 +150,4 @@ import os
 BASE_PATH = os.path.dirname(os.path.dirname(__file__))
 TEST_DISCOVERY_ROOT = os.path.join(BASE_PATH, 'testing')
 TEST_RUNNER = "test_project.tests.runner.DiscoveryDjangoTestSuiteRunner"
-JENKINS_TEST_RUNNER = "test_project.tests.runner.JenkinsDiscoveryDjangoTestSuiteRunner"
+#JENKINS_TEST_RUNNER = "test_project.tests.runner.JenkinsDiscoveryDjangoTestSuiteRunner"
