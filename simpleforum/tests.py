@@ -9,10 +9,10 @@ class ForumIndexTest(WebTest):
         """
         Initialization. Creating model instances for tests
         """
-        self.root_room1 = any_model(Room, parent=None)
-        self.root_room2 = any_model(Room, parent=None)
-        self.child_room_1_1 = any_model(Room, parent=self.root_room1)
-        self.child_room_2_1 = any_model(Room, parent=self.root_room2)
+        self.root_room1 = any_model(Room, parent=None, title="root room 1 title")
+        self.root_room2 = any_model(Room, parent=None, title="root room 2 title")
+        self.child_room_1_1 = any_model(Room, parent=self.root_room1, title="child room 1 1 title")
+        self.child_room_2_1 = any_model(Room, parent=self.root_room2, title="child room 2 1 title")
 
     def _get_index_page(self):
         return self.app.get(reverse("simpleforum_index"))
