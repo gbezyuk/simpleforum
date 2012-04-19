@@ -7,7 +7,7 @@ TEMPLATE_DEBUG = True
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = '/tmp/test_project'
 
-PROJECT_ROOT = '/d/django/simpleforum/'
+PROJECT_ROOT = 'home/gbezyuk/d/web/django/simpleforum/'
 SITE_ROOT = PROJECT_ROOT + 'test_project/'
 MEDIA_ROOT = SITE_ROOT + 'media/'
 STATIC_ROOT = SITE_ROOT + 'static/'
