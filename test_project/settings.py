@@ -12,7 +12,7 @@ SECRET_KEY = '0q^^#b-w#ae@i%h$da%chx@3ldu52c5%6v)_fiaorkl+4#r%=1'
 
 MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
-#ADMIN_MEDIA_PREFIX = STATIC_URL + 'grappelli/'
+ADMIN_MEDIA_PREFIX = STATIC_URL + 'grappelli/'
 
 INSTALLED_APPS = (
 	'south',
