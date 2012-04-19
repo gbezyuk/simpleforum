@@ -21,6 +21,3 @@ class ForumIndexTest(WebTest):
         """
         index_page = self.app.get(reverse("simpleforum_index"))
         self.assertEqual(index_page.status, '200 OK')
-
-    def test_ololo(self):
-        assert True
