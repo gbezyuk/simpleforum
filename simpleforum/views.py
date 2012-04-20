@@ -17,7 +17,9 @@ def add_room(request, parent_room_id=None, template_name='simpleforum/add_room.h
     """
     Forum add room form view
     """
-    form = RoomForm(data = request.POST or None, initial=Room.get_initials())
+    if parent_room_id:
+      room = get_object_or_404(Room, pk=parent_room_id)
+    form = RoomForm(parent_room=room,data = request.POST or None, initial=Room.get_initials())
     if form.is_valid():
         form.save()
         messages.success(request, _('room was successfully added'))
