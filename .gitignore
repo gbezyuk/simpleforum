@@ -1,6 +1,7 @@
 test_project/development.py
 test_project/staging.py
 test_project/production.py
+test_project/nmerkulov_development.py
 reports
 *sqlite3
 error.log

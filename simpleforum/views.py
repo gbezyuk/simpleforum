@@ -20,14 +20,20 @@ def add_room(request, parent_room_id=None, template_name='simpleforum/add_room.h
     room=None
     if parent_room_id:
       room = get_object_or_404(Room, pk=parent_room_id)
-    form = RoomForm(parent_room=room,data = request.POST or None, initial=Room.get_initials())
+    form = RoomForm(parent_room=room, data = request.POST or None, initial=Room.get_initials())
     if form.is_valid():
         form.save()
         messages.success(request, _('room was successfully added'))
-        return redirect_to(request, reverse('simpleforum_index'), permanent=False)
+        if room:
+            return redirect_to(request, room.get_absolute_url(), permanent=False)
+        else:
+            return redirect_to(request, reverse('simpleforum_index'), permanent=False)
     return direct_to_template(request, template_name, locals())
 
 def room(request, room_id, template_name='simpleforum/room.haml'):
+    """
+    Room details view
+    """
     room = get_object_or_404(Room, pk=room_id)
     rooms = room.children.all()
     return direct_to_template(request, template_name, locals())

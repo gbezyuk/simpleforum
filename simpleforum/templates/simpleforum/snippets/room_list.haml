@@ -10,11 +10,12 @@
 			- for room in rooms
 				%tr
 					%td
-						= room
-						- if room.description
-							.description
-								= room.description|safe
+						%a{'href': '{{ room.get_absolute_url }}'}
+							= room
+							- if room.description
+								.description
+									= room.description|safe
 		- else
-		%tr
-			%td
-				= empty_list_message
+			%tr
+				%td
+					= empty_list_message

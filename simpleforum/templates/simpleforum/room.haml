@@ -18,7 +18,7 @@
 - block content
 	- if room.description
 		.description
-			= room.description
+			= room.description|safe
 	{% trans "Room is empty" as empty_list_message %}
 	- with list_class="room" rooms=room.children.all
 		- include 'simpleforum/snippets/room_list.haml'

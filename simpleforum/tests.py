@@ -55,17 +55,10 @@ class AddForumRoomTest(WebTest):
     """
     Testing "add forum room" forum behaving properely
     """
-    def setUp(self):
-        """
-        Initialization. Creating model instances for tests
-        """
-       # self.room1=any_model(Room,id=2)
-        self.root_room = any_model(Room, parent=None)
 
-        
-    def test_add_room_form(self):
+    def test_add_root_room_form(self):
         """
-        Testing add room form works properely
+        Testing add root room form works properely
         """
         form = self.app.get(_get_add_room_url()).forms['add_room_form']
         self.assertEqual(form['title'].value, _('new room'))
@@ -82,25 +75,26 @@ class AddForumRoomTest(WebTest):
         self.assertIn(added_room.title, response)
         self.assertIn(added_room.description, response)
         
-    def test_adding_child_form(self):
-      
-        #form_page = self.app.get(reverse('simpleforum.views.add_room',kwargs={ 'parent_room_id': '2' }))
-        #self.assertEqual(form_page.status, '200 OK')
-        page = self.app.get(reverse('simpleforum_insert_room', kwargs={'parent_room_id': self.root_room.id})) 
+    def test_add_child_room_form(self):
+        """
+        Testing add room as specific room child form
+        """
+        self.root_room = any_model(Room, parent=None)
+        page = self.app.get(reverse('simpleforum_insert_room', kwargs={'parent_room_id': self.root_room.id}))
         form = page.forms['add_room_form']
         self.assertEqual(form['title'].value, _('new room'))
-        form['title'] = 'test root room'
-        form['description'] = 'test root room description'
+        form['title'] = 'test child room'
+        form['description'] = 'test child room description'
         response = form.submit()
         self.assertEqual(response.status, '302 FOUND')
         response = response.follow()
         self.assertIn(_('room was successfully added'), response)
-        added_room = Room.objects.get(title='test root room', description='test root room description')
+        added_room = Room.objects.get(title='test child room', description='test child room description')
         assert added_room #exists
         # then testing redirect results
-#        self.assertNotIn('add_room_form', response.forms)
-#        self.assertIn(added_room.title, response)
-#        self.assertIn(added_room.description, response)
+        self.assertNotIn('add_room_form', response.forms)
+        self.assertIn(added_room.title, response)
+        self.assertIn(added_room.description, response)
         
     def test_room_presence(self):
         """
@@ -121,4 +115,3 @@ class AddForumRoomTest(WebTest):
         room2details = self.app.get(room2.get_absolute_url())
         self.assertIn(room2.title, room2details)
         self.assertIn(room2.description, room2details)
-        
