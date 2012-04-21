@@ -48,6 +48,8 @@ class ForumIndexTest(WebTest):
         self.assertIn(self.root_room2.title, index_page)
         self.assertNotIn(self.child_room_1_1.title, index_page)
         self.assertNotIn(self.child_room_2_1.title, index_page)
+        
+
 
 class AddForumRoomTest(WebTest):
     """
@@ -59,8 +61,7 @@ class AddForumRoomTest(WebTest):
         """
        # self.room1=any_model(Room,id=2)
         room_id='2'
-        pass
-
+        
     def test_add_room_form(self):
         """
         Testing add room form works properely
@@ -96,7 +97,6 @@ class AddForumRoomTest(WebTest):
         added_room = Room.objects.get(title='test root room', description='test root room description')
         assert added_room #exists
         # then testing redirect results
-        self.assertEqual('parent',parent_cadidate)
         self.assertNotIn('add_room_form', response.forms)
         self.assertIn(added_room.title, response)
         self.assertIn(added_room.description, response)
@@ -120,3 +120,4 @@ class AddForumRoomTest(WebTest):
         room2details = self.app.get(room2.get_absolute_url())
         self.assertIn(room2.title, room2details)
         self.assertIn(room2.description, room2details)
+        
