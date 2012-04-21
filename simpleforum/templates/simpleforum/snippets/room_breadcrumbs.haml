@@ -1,0 +1,11 @@
+- load i18n
+{% if room.parent  %}
+	{% for parent_room in room.get_ancestors %}
+		%li
+			%a{'href': '{% url simpleforum_room parent_room.pk %}'}
+				= parent_room.title
+	{% endfor %}
+{% endif %}
+	%li
+		%a{'href': '{% url simpleforum_room room.pk %}'}
+			= room

@@ -8,18 +8,7 @@
 		%li
 			%a{'href': '{% url simpleforum_index %}'}
 				{% trans "Forum" %}
-		{% if room %}
-			%li
-				%a{'href': '{% url simpleforum_room room.pk %}'}
-					= room
-			%li
-				%a{'href': '{% url simpleforum_insert_room room.id %}'}
-					{% trans "Add room" %}
-		{% else %}
-			%li
-				%a{'href': '{% url simpleforum_add_room %}'}
-					{% trans "Add room" %}
-		{% endif %}
+		- include 'simpleforum/snippets/room_breadcrumbs.haml'
 - block caption
 	{% trans "Add room" %}
 

@@ -30,7 +30,15 @@ class ForumIndexTest(WebTest):
         self.root_room2 = any_model(Room, parent=None, title="root room 2 title")
         self.child_room_1_1 = any_model(Room, parent=self.root_room1, title="child room 1 1 title")
         self.child_room_2_1 = any_model(Room, parent=self.root_room2, title="child room 2 1 title")
-
+        
+        
+    def test_parent_links(self):
+        page = self.app.get(reverse('simpleforum_room', kwargs={'room_id': self.child_room_1_1.id}))
+        raise ValueError(self.child_room_1_1.parent)
+        for parent_room in self.child_room_1_1.get_ancestors():
+	  assert parent_room.title in page
+	  raise ValueError('Hi! I am a bug!')
+        
     def test_index_page_status(self):
         """
         Test that forum index page exists and shows properly.

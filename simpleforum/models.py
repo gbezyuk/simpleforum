@@ -1,7 +1,6 @@
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
-from mptt.models import MPTTModel
-
+from mptt.models import MPTTModel,TreeForeignKey
 class Room(MPTTModel):
     class Meta:
         ordering = ['tree_id', 'lft']
@@ -10,7 +9,7 @@ class Room(MPTTModel):
 
     title = models.CharField(max_length=100, verbose_name=_('title'))
     description = models.TextField(blank=True, null=True, verbose_name=_('description'))
-    parent = models.ForeignKey('self', null=True, blank=True, related_name='children', verbose_name=_('parent room'))
+    parent = models.TreeForeignKey('self', null=True, blank=True, related_name='children', verbose_name=_('parent room'))
 
     def __unicode__(self):
         return self.title
